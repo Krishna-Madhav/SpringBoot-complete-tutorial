@@ -4,6 +4,7 @@ import jakarta.persistence.*;
 import lombok.Getter;
 import lombok.Setter;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -18,5 +19,5 @@ public class Category {
     private String name;
 
     @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)  // Cascade.All removes all the products in case a category is removed (i.e. It deletes the child table data in case parent table data is deleted)
-    private List<Product> products;
+    private List<Product> products = new ArrayList<>();
 }

@@ -1,9 +1,10 @@
 package com.krishna.product.controller;
 
 import com.krishna.product.dto.CategoryDTO;
-import com.krishna.product.entity.Category;
 import com.krishna.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -18,10 +19,10 @@ public class CategoryController {
 
     // create a category
     @PostMapping
-    public Category createCategory(@RequestBody Category category){
+    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO){
 
-        categoryService.createCategory(category);
-        return category;
+        CategoryDTO responseCategoryDTO = categoryService.createCategory(categoryDTO);
+        return new ResponseEntity<>(responseCategoryDTO, HttpStatus.CREATED);
     }
 
     // get a category based on id
