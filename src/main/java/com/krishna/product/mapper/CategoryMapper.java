@@ -5,6 +5,15 @@ import com.krishna.product.entity.Category;
 
 public class CategoryMapper {
 
+
+    // CategoryDTO -> Category
+    public static Category toCategoryEntity(CategoryDTO categoryDTO) {
+        Category category = new Category();
+
+        category.setName(categoryDTO.getName());
+        return category;
+    }
+
     // Category Entity (saved as table) -> CategoryDTO
     public static CategoryDTO toCategoryDTO(Category category) {
 
@@ -22,13 +31,5 @@ public class CategoryMapper {
                 .toList());
 
         return categoryDTO;
-    }
-
-    // CategoryDTO -> Category
-    public static Category toCategoryEntity(CategoryDTO categoryDTO) {
-        Category category = new Category();
-
-        category.setName(categoryDTO.getName());
-        return category;
     }
 }
