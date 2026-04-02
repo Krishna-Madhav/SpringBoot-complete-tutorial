@@ -12,7 +12,7 @@ import java.util.List;
 
 public class CategoryDTO {
 
-    private Long id;
+    private Long categoryId;
 
     private String name;
 

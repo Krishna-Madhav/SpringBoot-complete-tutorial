@@ -32,6 +32,8 @@ public class ProductService {
         System.out.println("****** " + product);
 
         // convert Product to ProductDTO and return to controller
-        return ProductMapper.toProductDTO(product);
+        ProductDTO productDTO1 = ProductMapper.toProductDTO(product);
+        System.out.println("***** " + productDTO1);
+        return productDTO1;
     }
 }

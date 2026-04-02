@@ -27,13 +27,13 @@ public class ProductMapper {
     public static ProductDTO toProductDTO(Product product){
         ProductDTO productDTO = new ProductDTO();
 
-        productDTO.setId(product.getId());
+        productDTO.setProductId(product.getProductId());
         productDTO.setName(product.getName());
         productDTO.setPrice(product.getPrice());
         productDTO.setDescription(product.getDescription());
-        productDTO.setCategoryId(product.getCategory().getId());
+        productDTO.setCategoryId(product.getCategory().getCategoryId());
 
         return productDTO;
     }
-    
+
 }

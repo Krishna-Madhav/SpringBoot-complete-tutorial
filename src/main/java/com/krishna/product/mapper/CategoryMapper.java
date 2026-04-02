@@ -23,7 +23,7 @@ public class CategoryMapper {
 
         CategoryDTO categoryDTO = new CategoryDTO();
 
-        categoryDTO.setId(category.getId());
+        categoryDTO.setCategoryId(category.getCategoryId());
         categoryDTO.setName(category.getName());
         categoryDTO.setProducts(category.getProducts()
                 .stream()
