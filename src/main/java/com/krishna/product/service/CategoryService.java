@@ -18,7 +18,7 @@ public class CategoryService {
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
         // convert CategoryDTO to Category for persisting to DB
         Category category = CategoryMapper.toCategoryEntity(categoryDTO);
-        category = categoryRepository.save(category); // This contains ID as well
+        category = categoryRepository.save(category); // This contains ID as well so Category gets updated with ID field
 
         // Converting back to CategoryDTO from newly persisted Category entity
         return CategoryMapper.toCategoryDTO(category);

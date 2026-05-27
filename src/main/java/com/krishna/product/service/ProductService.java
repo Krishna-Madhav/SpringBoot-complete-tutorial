@@ -9,31 +9,40 @@ import com.krishna.product.repository.ProductRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.stereotype.Service;
 
-import java.util.Optional;
-
 @Service
 @AllArgsConstructor
 public class ProductService {
 
     private ProductRepository productRepository;
+
     private CategoryRepository categoryRepository;
 
     public ProductDTO createProduct(ProductDTO productDTO){
 
-        // First of all, find category Id using DTO and then search for Category entity using this ID
-        Long categoryId = productDTO.getCategoryId();
-        System.out.println("categoryId " + categoryId);
-        Category category = categoryRepository.getOne(categoryId);
+        /**
+         * name, description, price, categoryId (These values will be provided by seller using Web UI)
+         * <p>
+         * At first,fetch categoryID using DTO and then search for Category entity using this ID and in case, if
+         * that doesn't exist,then throw an error
+         * </p>
+         */
+
+        Category category = categoryRepository.findById(productDTO.getCategoryId())
+                .orElseThrow(() -> new RuntimeException("Category not found!"));
+
         System.out.println("category******* " + category.toString());
 
-        // Convert ProductDTO to Product entity to persist in DB
+        // Convert ProductDTO -> Product entity -> Persist in DB
         Product product = ProductMapper.toProductEntity(productDTO, category);
         product = productRepository.save(product);
+
         System.out.println("****** " + product);
 
-        // convert Product to ProductDTO and return to controller
-        ProductDTO productDTO1 = ProductMapper.toProductDTO(product);
-        System.out.println("***** " + productDTO1);
-        return productDTO1;
+        // Convert Product -> ProductDTO and return to controller
+        ProductDTO productDTOUpdated = ProductMapper.toProductDTO(product);
+
+        System.out.println("***** productDTOUpdated" + productDTOUpdated);
+        System.out.println("***** productDTOUpdated.getProductId " + productDTOUpdated.getProductId());
+        return productDTOUpdated;
     }
 }

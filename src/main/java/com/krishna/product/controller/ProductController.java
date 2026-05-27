@@ -18,10 +18,12 @@ public class ProductController {
     // create a product
     @PostMapping
     public ProductDTO createProduct(@RequestBody ProductDTO productDTO){
-        productService.createProduct(productDTO);
-        return productDTO;
+
+        ProductDTO dto = productService.createProduct(productDTO);
+        return dto;
 
     }
+
     // get a product based on id
     // get all products
     // update a product based on id
