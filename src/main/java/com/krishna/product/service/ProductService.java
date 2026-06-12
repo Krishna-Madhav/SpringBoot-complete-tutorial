@@ -19,7 +19,7 @@ public class ProductService {
 
     public ProductDTO createProduct(ProductDTO productDTO){
 
-        /**
+        /*
          * name, description, price, categoryId (These values will be provided by seller using Web UI)
          * <p>
          * At first,fetch categoryID using DTO and then search for Category entity using this ID and in case, if
@@ -38,11 +38,8 @@ public class ProductService {
 
         System.out.println("****** " + product);
 
-        // Convert Product -> ProductDTO and return to controller
+        // Convert Product Entity -> ProductDTO and return to controller
         ProductDTO productDTOUpdated = ProductMapper.toProductDTO(product);
-
-        System.out.println("***** productDTOUpdated" + productDTOUpdated);
-        System.out.println("***** productDTOUpdated.getProductId " + productDTOUpdated.getProductId());
         return productDTOUpdated;
     }
 }
