@@ -6,10 +6,12 @@ import com.krishna.product.mapper.CategoryMapper;
 import com.krishna.product.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import java.util.List;
+import java.util.Optional;
 
 @Service
 @AllArgsConstructor
@@ -41,5 +43,11 @@ public class CategoryService {
         Category category = categoryRepository.findById(id).orElseThrow(() -> new RuntimeException("Category not found!"));
 
         return CategoryMapper.toCategoryDTO(category);
+    }
+
+    public String deleteCategory(Long id) {
+        categoryRepository.deleteById(id);
+        return "Category " + id + " has been deleted!";
+
     }
 }
