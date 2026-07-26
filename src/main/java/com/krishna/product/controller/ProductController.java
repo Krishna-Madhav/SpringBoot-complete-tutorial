@@ -5,10 +5,9 @@ import com.krishna.product.service.ProductService;
 import lombok.AllArgsConstructor;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/api/products")
@@ -26,10 +25,29 @@ public class ProductController {
         return new ResponseEntity<>(createdProduct, HttpStatus.CREATED);
     }
 
+    // Get All Products
+    @GetMapping
+    public List<ProductDTO> getAllProducts(){
+        return productService.getAllProducts();
+    }
+
     // get a product based on id
-    // get all products
+    @GetMapping("/{id}")
+    public ResponseEntity<ProductDTO> getProductById(@PathVariable Long id){
+        ProductDTO product = productService.getProductById(id);
+        return new ResponseEntity<>(product, HttpStatus.OK);
+    }
 
     // update a product based on id
-    // delete a product
+    @PutMapping("/{id}")
+    public ResponseEntity<ProductDTO> updateProduct(@PathVariable Long id, @RequestBody ProductDTO productDTO){
+        ProductDTO updatedProduct = productService.updateProduct(id, productDTO);
+        return new ResponseEntity<>(updatedProduct, HttpStatus.OK);
+    }
 
+    // delete a product
+    @DeleteMapping("/{id}")
+    public ResponseEntity<String> deleteProductById(@PathVariable Long id){
+        return new ResponseEntity<>(productService.deleteProduct(id), HttpStatus.OK);
+    }
 }
