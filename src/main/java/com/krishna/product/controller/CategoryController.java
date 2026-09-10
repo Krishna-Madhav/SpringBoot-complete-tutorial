@@ -1,6 +1,7 @@
 package com.krishna.product.controller;
 
 import com.krishna.product.dto.CategoryDTO;
+import com.krishna.product.exception.CategoryAlreadyExistsException;
 import com.krishna.product.service.CategoryService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
@@ -18,27 +19,35 @@ public class CategoryController {
 
     // create a category
     @PostMapping
-    public ResponseEntity<CategoryDTO> createCategory(@RequestBody CategoryDTO categoryDTO){
+    public ResponseEntity<?> createCategory(@RequestBody CategoryDTO categoryDTO) {
 
-        CategoryDTO responseCategoryDTO = categoryService.createCategory(categoryDTO);
-        return new ResponseEntity<>(responseCategoryDTO, HttpStatus.CREATED);
+/*
+        try {
+            CategoryDTO savedCategory = categoryService.createCategory(categoryDTO);
+            return new ResponseEntity<>(savedCategory, HttpStatus.CREATED);
+        } catch (CategoryAlreadyExistsException exception) {
+            return new ResponseEntity<>(exception.getMessage(), HttpStatus.CONFLICT);
+        }
+*/
+         CategoryDTO responseCategoryDTO = categoryService.createCategory(categoryDTO);
+         return new ResponseEntity<>(responseCategoryDTO, HttpStatus.CREATED);
     }
 
     // get a category based on id
     @GetMapping("/{id}")
-    public CategoryDTO getCategoryById(@PathVariable Long id){
+    public CategoryDTO getCategoryById(@PathVariable Long id) {
         return categoryService.getCategoryById(id);
     }
 
     // get all categories
     @GetMapping
-    public List<CategoryDTO> getAllCategories(){
+    public List<CategoryDTO> getAllCategories() {
         return categoryService.getAllCategories();
     }
 
     // delete a category
     @DeleteMapping("/{id}")
-    public ResponseEntity<String> deleteCategory(@PathVariable Long id){
+    public ResponseEntity<String> deleteCategory(@PathVariable Long id) {
         String message = categoryService.deleteCategory(id);
         return new ResponseEntity<>(message, HttpStatus.OK);
 

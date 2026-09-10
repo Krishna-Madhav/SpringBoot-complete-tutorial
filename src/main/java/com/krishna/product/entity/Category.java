@@ -20,6 +20,6 @@ public class Category {
 
     private String name;
 
-    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL)  // Cascade.All removes all the products in case a category is removed (i.e. It deletes the child table data in case parent table data is deleted)
+    @OneToMany(mappedBy = "category", cascade = CascadeType.ALL, fetch = FetchType.EAGER)  // Cascade.All removes all the products in case a category is removed (i.e. It deletes the child table data in case parent table data is deleted)
     private List<Product> products = new ArrayList<>();
 }

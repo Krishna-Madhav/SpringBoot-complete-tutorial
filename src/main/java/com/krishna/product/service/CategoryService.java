@@ -2,6 +2,7 @@ package com.krishna.product.service;
 
 import com.krishna.product.dto.CategoryDTO;
 import com.krishna.product.entity.Category;
+import com.krishna.product.exception.CategoryAlreadyExistsException;
 import com.krishna.product.mapper.CategoryMapper;
 import com.krishna.product.repository.CategoryRepository;
 import lombok.AllArgsConstructor;
@@ -21,6 +22,14 @@ public class CategoryService {
     private CategoryRepository categoryRepository;
 
     public CategoryDTO createCategory(CategoryDTO categoryDTO) {
+
+        //check if category exists in DB to avoid duplicate
+        Optional<Category> existingCategory = categoryRepository.findByName(categoryDTO.getName());
+
+        if(existingCategory.isPresent()){
+            throw new CategoryAlreadyExistsException("Category `" + categoryDTO.getName() +"` already exists!");
+        }
+
         // convert CategoryDTO to Category for persisting to DB
         Category category = CategoryMapper.toCategoryEntity(categoryDTO);
         category = categoryRepository.save(category); // This contains ID as well so Category gets updated with ID field

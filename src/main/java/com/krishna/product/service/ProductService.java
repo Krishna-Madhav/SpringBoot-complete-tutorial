@@ -3,6 +3,7 @@ package com.krishna.product.service;
 import com.krishna.product.dto.ProductDTO;
 import com.krishna.product.entity.Category;
 import com.krishna.product.entity.Product;
+import com.krishna.product.exception.CategoryNotFoundException;
 import com.krishna.product.mapper.ProductMapper;
 import com.krishna.product.repository.CategoryRepository;
 import com.krishna.product.repository.ProductRepository;
@@ -31,7 +32,7 @@ public class ProductService {
          */
 
         Category category = categoryRepository.findById(productDTO.getCategoryId())
-                .orElseThrow(() -> new RuntimeException("Category not found!"));
+                .orElseThrow(() -> new CategoryNotFoundException("Category ID: "+ productDTO.getCategoryId() +" not found!"));
 
         System.out.println("category******* " + category.toString());
 
